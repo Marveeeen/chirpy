@@ -13,12 +13,14 @@
   "keywords": [],
   "author": "",
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.1",
     "@types/node": "^22.10.5",
     "drizzle-kit": "^0.30.4",
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "drizzle-orm": "^0.39.1",
     "express": "^5.1.0",
     "postgres": "^3.4.5"
