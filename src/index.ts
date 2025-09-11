@@ -6,7 +6,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import { handlerReadiness } from "./api/handler_readiness.js";
 import { handlerMetrics } from "./api/metrics.js";
 import { handlerReset } from "./api/reset.js";
-import { handlerChirpsCreate } from "./api/chirps.js";
+import { handlerChirpsCreate, handleChirpsRetrieve } from "./api/chirps.js";
 import { handlerUsersCreate } from "./api/users.js";
 import {
   errorMiddleWare,
@@ -43,6 +43,10 @@ app.post("/api/users", (req, res, next) => {
 
 app.post("/api/chirps", (req, res, next) => {
   Promise.resolve(handlerChirpsCreate(req, res)).catch(next);
+});
+
+app.get("/api/chirps", (req, res, next) => {
+  Promise.resolve(handleChirpsRetrieve(req, res).catch(next));
 });
 
 app.use(errorMiddleWare);
