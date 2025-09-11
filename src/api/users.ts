@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 
-import { createUser } from "./db/queries/users.js";
+import { createUser } from "../db/queries/users.js";
 import { BadRequestError } from "./errors.js";
 import { respondWithJSON } from "./json.js";
 
