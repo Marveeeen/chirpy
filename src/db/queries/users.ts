@@ -11,8 +11,8 @@ export async function createUser(user: NewUser) {
   return result;
 }
 
-export async function getUserByID(userId: string) {
-  const [result] = await db.select().from(users).where(eq(users.id, userId));
+export async function getUserByEmail(email: string) {
+  const [result] = await db.select().from(users).where(eq(users.email, email));
 
   return result;
 }

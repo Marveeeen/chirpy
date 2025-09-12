@@ -19,6 +19,7 @@ import {
 } from "./api/middleware.js";
 
 import { config } from "./config.js";
+import { handlerLogin } from "./api/auth.js";
 
 const migrationClient = postgres(config.db.url, { max: 1 });
 await migrate(drizzle(migrationClient), config.db.migrationConfig);
@@ -55,6 +56,10 @@ app.get("/api/chirps", (req, res, next) => {
 
 app.get("/api/chirps/:chirpId", (req, res, next) => {
   Promise.resolve(handlerChirpsGet(req, res).catch(next));
+});
+
+app.post("/api/login", (req, res, next) => {
+  Promise.resolve(handlerLogin(req, res)).catch(next);
 });
 
 app.use(errorMiddleWare);
