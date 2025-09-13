@@ -12,6 +12,7 @@ import {
   saveRefreshToken,
 } from "../db/queries/refresh.js";
 import { getUserByEmail } from "../db/queries/users.js";
+
 import { UserNotAuthenticatedError } from "./errors.js";
 import { respondWithJSON } from "./json.js";
 import { UserResponse } from "./users.js";

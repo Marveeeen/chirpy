@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeAll } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
+import { BadRequestError, UserNotAuthenticatedError } from "./api/errors.js";
 import {
-  hashPassword,
   checkPasswordHash,
+  extractBearerToken,
+  hashPassword,
   makeJWT,
   validateJWT,
-  extractBearerToken,
 } from "./auth";
-import { BadRequestError, UserNotAuthenticatedError } from "./api/errors.js";
 
 describe("Password Hashing", () => {
   const password1 = "correctPassword123!";

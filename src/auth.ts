@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { Request } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+
 import { BadRequestError, UserNotAuthenticatedError } from "./api/errors.js";
 
 const TOKEN_ISSUER = "chirpy";

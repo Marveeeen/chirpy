@@ -1,10 +1,11 @@
 import type { Request, Response } from "express";
 
-import { respondWithJSON } from "./json.js";
-import { createChirp, getChirp, getChirps } from "../db/queries/chirps.js";
-import { BadRequestError, NotFoundError } from "./errors.js";
 import { getBearerToken, validateJWT } from "../auth.js";
 import { config } from "../config.js";
+import { createChirp, getChirp, getChirps } from "../db/queries/chirps.js";
+
+import { BadRequestError, NotFoundError } from "./errors.js";
+import { respondWithJSON } from "./json.js";
 
 export async function handlerChirpsCreate(req: Request, res: Response) {
   type parameters = {
