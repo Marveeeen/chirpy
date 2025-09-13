@@ -16,7 +16,7 @@ import {
   middlewareMetricsInc,
 } from "./api/middleware.js";
 import { handlerReset } from "./api/reset.js";
-import { handlerUsersCreate } from "./api/users.js";
+import { handlerUsersCreate, handlerUsersUpdate } from "./api/users.js";
 import { handlerLogin, handlerRefresh, handlerRevoke } from "./api/auth.js";
 
 import { config } from "./config.js";
@@ -44,6 +44,10 @@ app.post("/admin/reset", (req, res, next) => {
 
 app.post("/api/users", (req, res, next) => {
   Promise.resolve(handlerUsersCreate(req, res)).catch(next);
+});
+
+app.put("/api/users", (req, res, next) => {
+  Promise.resolve(handlerUsersUpdate(req, res)).catch(next);
 });
 
 app.post("/api/chirps", (req, res, next) => {
