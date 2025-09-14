@@ -24,3 +24,11 @@ export async function deleteChirp(id: string) {
 
   return rows.length > 0;
 }
+
+export async function getChirpByAuthor(id: string) {
+  const rows = await db.select().from(chirps).where(eq(chirps.userId, id));
+  if (rows.length === 0) {
+    return;
+  }
+  return rows[0];
+}

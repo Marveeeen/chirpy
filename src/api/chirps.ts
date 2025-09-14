@@ -6,6 +6,7 @@ import {
   createChirp,
   deleteChirp,
   getChirp,
+  getChirpByAuthor,
   getChirps,
 } from "../db/queries/chirps.js";
 
@@ -61,6 +62,20 @@ function getCleanedBody(body: string, badWords: string[]) {
 export async function handlerChirpsRetrieve(_: Request, res: Response) {
   const chirps = await getChirps();
   respondWithJSON(res, 200, chirps);
+}
+
+export async function handlerChirpsGetByAuthor(req: Request, res: Response) {
+  const { authorId } = req.query;
+
+  console.log(authorId);
+
+  const chirp = await getChirpByAuthor(String(authorId));
+  if (!chirp) {
+    throw new NotFoundError(`Chirp with authorId: ${authorId} not found`);
+  }
+
+  console.log(authorId, chirp);
+  respondWithJSON(res, 200, chirp);
 }
 
 export async function handlerChirpsGet(req: Request, res: Response) {
