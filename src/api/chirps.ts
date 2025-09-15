@@ -6,7 +6,6 @@ import {
   createChirp,
   deleteChirp,
   getChirp,
-  getChirpByAuthor,
   getChirps,
 } from "../db/queries/chirps.js";
 
@@ -59,23 +58,31 @@ function getCleanedBody(body: string, badWords: string[]) {
   return cleaned;
 }
 
-export async function handlerChirpsRetrieve(_: Request, res: Response) {
-  const chirps = await getChirps();
-  respondWithJSON(res, 200, chirps);
-}
+export async function handlerChirpsRetrieve(req: Request, res: Response) {
+  let chirps = await getChirps();
 
-export async function handlerChirpsGetByAuthor(req: Request, res: Response) {
-  const { authorId } = req.query;
-
-  console.log(authorId);
-
-  const chirp = await getChirpByAuthor(String(authorId));
-  if (!chirp) {
-    throw new NotFoundError(`Chirp with authorId: ${authorId} not found`);
+  let authorId = "";
+  let authorIdQuery = req.query.authorId;
+  if (typeof authorIdQuery === "string") {
+    authorId = authorIdQuery;
   }
 
-  console.log(authorId, chirp);
-  respondWithJSON(res, 200, chirp);
+  let sortDirection = "asc";
+  let sortDirectionParam = req.query.sort;
+  if (sortDirectionParam === "desc") {
+    sortDirection = "desc";
+  }
+
+  const filteredChirps = chirps.filter(
+    (chirp) => chirp.userId === authorId || authorId === ""
+  );
+  filteredChirps.sort((a, b) =>
+    sortDirection === "asc"
+      ? a.createdAt.getTime() - b.createdAt.getTime()
+      : b.createdAt.getTime() - a.createdAt.getTime()
+  );
+
+  respondWithJSON(res, 200, chirps);
 }
 
 export async function handlerChirpsGet(req: Request, res: Response) {
